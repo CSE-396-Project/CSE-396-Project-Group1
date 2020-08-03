@@ -48,10 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,
                         new HomeFragment()).commit();
                 break;
-            case R.id.nav_about:
-                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,
-                        new AboutFragment()).commit();
-                break;
+
             case R.id.nav_login:
                 getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,
                         new LoginFragment()).commit();

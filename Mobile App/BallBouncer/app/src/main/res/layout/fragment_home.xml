@@ -1,12 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light">
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#A9CCE3"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_weight=".0"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Home Fragment"
-        android:textSize="30sp" />
-</RelativeLayout>
+        android:layout_marginVertical="5dp"
+        android:text="CAMERA"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textColor="#154360"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+        <VideoView
+            android:id="@+id/videoId"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/round_button"
+            android:text="BOUNCE THE BALL"
+            android:textColor="#154360"
+            android:textSize="25sp"
+            />
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_button"
+            android:text="DRAW SQUARE"
+            android:textColor="#154360"
+            android:textSize="25sp"
+            />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DRAW CIRCULAR"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/round_button"
+            android:textColor="#154360"
+            android:textSize="25sp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
