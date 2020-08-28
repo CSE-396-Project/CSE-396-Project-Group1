@@ -1,22 +1,41 @@
 package com.app.ballbouncer;
 
-import android.net.Uri;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.MediaController;
-import android.widget.VideoView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class HomeFragment extends Fragment {
-    private VideoView videoView;
+
     private Button button1,button2,button3;
+    private ImageView ball;
+
+    private int x,y,radius=50;
 
 
     @Nullable
@@ -24,12 +43,12 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home,container,false);
-        //maybe modify some components
-        videoView = (VideoView) v.findViewById(R.id.videoId);
-        startVideo();
+
         button1 = v.findViewById(R.id.button1);
         button2 = v.findViewById(R.id.button2);
         button3 = v.findViewById(R.id.button3);
+
+        ball = v.findViewById(R.id.ball);
 
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -51,10 +70,57 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+
         return v;
     }
 
-   @Override
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    // delay can be reduced
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(150);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    Paint paint = new Paint();
+                    paint.setColor(getResources().getColor(R.color.orange));
+                    paint.setStyle(Paint.Style.FILL);
+
+                    final Bitmap bitmap = Bitmap.createBitmap(500,500,Bitmap.Config.ARGB_8888);
+                    Canvas canvas = new Canvas(bitmap);
+
+                    //random x,y coor for now, replace it with getReq
+                    randData();
+                    //getReq();
+
+                    canvas.drawCircle(x,y,radius,paint);
+
+
+
+                    ball.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ball.setImageBitmap(bitmap);
+                        }
+                    });
+
+                }
+            }
+        });
+
+        thread.start();
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //show toolbar and make drawer enable
@@ -62,14 +128,43 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void startVideo(){
 
-        String videoPath = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.video;
-        Uri uri = Uri.parse(videoPath);
-        videoView.setVideoURI(uri);
-        MediaController mediaController = new MediaController(getActivity());
-        videoView.setMediaController(mediaController);
-        mediaController.setAnchorView(videoView);
+    private void getReq(){
+        OkHttpClient client = new OkHttpClient();
+        String url = "192.168.0.1"; //local host
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    /*JSONObject Jobject;
+                    try {
+                        Jobject = new JSONObject(myResponse);
+                        //parse json object and map x,y,radius values
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }*/
+                }
+            }
+        });
     }
+
+    private void randData(){
+        //coordinate must between 0-500(which is bitmap weight and height) -> line 98
+        //threshold 50(which is fix radius for now)
+        int max_XY = 450, min_XY=50;
+        Random rn = new Random();
+        int range = max_XY - min_XY + 1;
+        x=rn.nextInt(range) + min_XY;
+        y=rn.nextInt(range) + min_XY;
+    }
+
 
 }
