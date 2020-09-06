@@ -1,6 +1,5 @@
 package com.app.ballbouncer;
 
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,46 +31,119 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
+    private static String ServerIP = "";
+    private static String ServerPort = "";
 
+    private TextView titleText;
     private Button button1,button2,button3;
     private ImageView ball;
 
     private int x,y,radius;
 
+    public static void setServerData(String ip, String port) {
+        HomeFragment.ServerIP = ip;
+        HomeFragment.ServerPort = port;
+    }
 
     @Nullable
     @Override
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home,container,false);
 
+        titleText = v.findViewById(R.id.titleText);
         button1 = v.findViewById(R.id.button1);
         button2 = v.findViewById(R.id.button2);
         button3 = v.findViewById(R.id.button3);
 
         ball = v.findViewById(R.id.ball);
 
-
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (HomeFragment.ServerIP.equals("") || HomeFragment.ServerPort.equals("")) {
+                    return;
+                }
+
+                Log.d("Bounce", "Sending Bounce Request...");
+
+                OkHttpClient client = new OkHttpClient();
+                String url = "http://" + HomeFragment.ServerIP + ":" + HomeFragment.ServerPort + "/bounce";
+
+                Log.d("Bounce", "URL: " + url);
+
+                Request request = new Request.Builder().url(url).build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                    }
+                });
                 Log.d("Home","Bounce the ball");
             }
         });
+
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Home","Draw square");
+                if (HomeFragment.ServerIP.equals("") || HomeFragment.ServerPort.equals("")) {
+                    return;
+                }
+
+                Log.d("Rectangle", "Sending Rectangle Request...");
+
+                OkHttpClient client = new OkHttpClient();
+                String url = "http://" + HomeFragment.ServerIP + ":" + HomeFragment.ServerPort + "/rectangle";
+
+                Log.d("Rectangle", "URL: " + url);
+
+                Request request = new Request.Builder().url(url).build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                    }
+                });
+
+                Log.d("Home","Draw Rectangle");
             }
         });
+
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Home","Draw circular");
+                if (HomeFragment.ServerIP.equals("") || HomeFragment.ServerPort.equals("")) {
+                    return;
+                }
+
+                Log.d("Circle", "Sending Circle Request...");
+
+                OkHttpClient client = new OkHttpClient();
+                String url = "http://" + HomeFragment.ServerIP + ":" + HomeFragment.ServerPort + "/circle";
+
+                Log.d("Circle", "URL: " + url);
+
+                Request request = new Request.Builder().url(url).build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                    }
+                });
+
+                Log.d("Home","Draw Circle");
             }
         });
 
-
+        titleText.setText("Ball Bouncer!");
 
         return v;
     }
@@ -82,29 +155,25 @@ public class HomeFragment extends Fragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                int counter = 0;
                 while (true) {
-                    // delay can be reduced
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if (counter < 10000000) {
+                        counter++;
+                        continue;
                     }
 
+                    counter = 0;
 
                     Paint paint = new Paint();
                     paint.setColor(getResources().getColor(R.color.orange));
                     paint.setStyle(Paint.Style.FILL);
 
-                    final Bitmap bitmap = Bitmap.createBitmap(500,500,Bitmap.Config.ARGB_8888);
+                    final Bitmap bitmap = Bitmap.createBitmap(500,500, Bitmap.Config.ARGB_8888);
                     Canvas canvas = new Canvas(bitmap);
 
-                    //random x,y coor for now, replace it with getReq
-                    //randData();
                     getReq();
 
-                    canvas.drawCircle(x,y,radius,paint);
-
-
+                    canvas.drawCircle(x, y, radius, paint);
 
                     ball.post(new Runnable() {
                         @Override
@@ -112,7 +181,6 @@ public class HomeFragment extends Fragment {
                             ball.setImageBitmap(bitmap);
                         }
                     });
-
                 }
             }
         });
@@ -127,11 +195,16 @@ public class HomeFragment extends Fragment {
         ((DrawerLocker) getActivity()).setDrawerEnabled(true);
     }
 
-
-
     private void getReq(){
+        if (HomeFragment.ServerIP.equals("")) {
+            return;
+        }
+
+        if (HomeFragment.ServerPort.equals("")) {
+            return;
+        }
         OkHttpClient client = new OkHttpClient();
-        String url = "http://192.168.1.27:3000/ball";
+        String url = "http://" + HomeFragment.ServerIP + ":" + HomeFragment.ServerPort + "/ball";
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -147,21 +220,10 @@ public class HomeFragment extends Fragment {
                     String[] tokens = myResponse.split(",");
                     x = Integer.parseInt(tokens[0]);
                     y = Integer.parseInt(tokens[1]);
-                    radius = Integer.parseInt(tokens[2]);
+                    // radius = Integer.parseInt(tokens[2]);
+                    radius = 50;
                 }
             }
         });
     }
-
-    private void randData(){
-        //coordinate must between 0-500(which is bitmap weight and height) -> line 98
-        //threshold 50(which is fix radius for now)
-        int max_XY = 450, min_XY=50;
-        Random rn = new Random();
-        int range = max_XY - min_XY + 1;
-        x=rn.nextInt(range) + min_XY;
-        y=rn.nextInt(range) + min_XY;
-    }
-
-
 }
