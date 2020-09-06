@@ -12,7 +12,6 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DrawerLocker{
 
     private DrawerLayout drawer;
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     @Override
     public void setDrawerEnabled(boolean enabled) {
