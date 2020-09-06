@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
     private Button button1,button2,button3;
     private ImageView ball;
 
-    private int x,y,radius=50;
+    private int x,y,radius;
 
 
     @Nullable
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
                 while (true) {
                     // delay can be reduced
                     try {
-                        TimeUnit.MILLISECONDS.sleep(150);
+                        TimeUnit.MILLISECONDS.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -99,8 +99,8 @@ public class HomeFragment extends Fragment {
                     Canvas canvas = new Canvas(bitmap);
 
                     //random x,y coor for now, replace it with getReq
-                    randData();
-                    //getReq();
+                    //randData();
+                    getReq();
 
                     canvas.drawCircle(x,y,radius,paint);
 
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
 
     private void getReq(){
         OkHttpClient client = new OkHttpClient();
-        String url = "192.168.0.1"; //local host
+        String url = "http://192.168.1.27:3000/ball";
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -144,13 +144,10 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
-                    /*JSONObject Jobject;
-                    try {
-                        Jobject = new JSONObject(myResponse);
-                        //parse json object and map x,y,radius values
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }*/
+                    String[] tokens = myResponse.split(",");
+                    x = Integer.parseInt(tokens[0]);
+                    y = Integer.parseInt(tokens[1]);
+                    radius = Integer.parseInt(tokens[2]);
                 }
             }
         });
