@@ -17,7 +17,7 @@ void on_websocket_message(wpp_client* c, websocketpp::connection_hdl hdl, messag
     common::frames.push_back(current_frame_buffer);
 
     find_ball_data();
-/*
+
     try {
         std::string request_url = "http://" + common::esp_ip + "/servo_control?" + "x=" + std::to_string(common::ball_x) + "&y=" + std::to_string(common::ball_y);
         std::cout << "Request URL: " << request_url << std::endl;
@@ -27,7 +27,7 @@ void on_websocket_message(wpp_client* c, websocketpp::connection_hdl hdl, messag
     catch(const std::exception &e) {
         std::cout << "Request failed, error: " << e.what() << std::endl;
     }
-*/
+
     if (common::frames.size() == 255) {
     	common::frames.erase(common::frames.begin());
     }
