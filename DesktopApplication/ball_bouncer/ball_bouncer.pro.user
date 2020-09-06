@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.12.0, 2020-09-01T09:28:46. -->
+<!-- Written by QtCreator 4.12.0, 2020-09-06T12:29:47. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -55,6 +55,14 @@
  <data>
   <variable>ProjectExplorer.Project.PluginSettings</variable>
   <valuemap type="QVariantMap">
+   <valuemap type="QVariantMap" key="AutoTest.ActiveFrameworks">
+    <value type="bool" key="AutoTest.Framework.Boost">true</value>
+    <value type="bool" key="AutoTest.Framework.GTest">true</value>
+    <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
+    <value type="bool" key="AutoTest.Framework.QtTest">true</value>
+   </valuemap>
+   <value type="int" key="AutoTest.RunAfterBuild">0</value>
+   <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey"/>
    <value type="bool" key="ClangCodeModel.UseGlobalConfig">true</value>
    <value type="QString" key="ClangCodeModel.WarningConfigId">Builtin.Questionable</value>
@@ -88,7 +96,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QtProjectManager.QMakeBuildStep</value>
       <value type="QString" key="QtProjectManager.QMakeBuildStep.QMakeArguments"></value>
-      <value type="bool" key="QtProjectManager.QMakeBuildStep.QMakeForced">false</value>
+      <value type="bool" key="QtProjectManager.QMakeBuildStep.QMakeForced">true</value>
       <valuelist type="QVariantList" key="QtProjectManager.QMakeBuildStep.SelectedAbis"/>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
@@ -306,9 +314,8 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ball_bouncer2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/gokce/Desktop/BallBouncer/DesktopApplication/ball_bouncer/ball_bouncer.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/gokce/Desktop/BallBouncer/DesktopApplication/ball_bouncer/ball_bouncer.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/gokce/Desktop/CSE-396-Project-Group1/DesktopApplication/ball_bouncer/ball_bouncer.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/gokce/Desktop/CSE-396-Project-Group1/DesktopApplication/ball_bouncer/ball_bouncer.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>

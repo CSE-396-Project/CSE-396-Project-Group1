@@ -4,22 +4,22 @@ std::string get_host_name() {
 	const int buffer_length = 256;
     char name[buffer_length];
 
-    #ifdef WIN32
-        TCHAR info_buffer[buffer_length];
-        DWORD len = buffer_length;
-        memset(Name, 0, buffer_length);
-        if(GetComputerName(info_buffer, &buffer_length)) {
-            for(int i = 0; i < buffer_length; i++) {
-                name[i] = info_buffer[i];
-            }
+#ifdef WIN32
+    TCHAR info_buffer[buffer_length];
+    DWORD len = buffer_length;
+    memset(Name, 0, buffer_length);
+    if(GetComputerName(info_buffer, &buffer_length)) {
+        for(int i = 0; i < buffer_length; i++) {
+            name[i] = info_buffer[i];
         }
-        else {
-            strcpy(name, "err");
-        }
-    #else
-        memset(name, 0, buffer_length);
-        gethostname(name, buffer_length);
-    #endif
+    }
+    else {
+        strcpy(name, "err");
+    }
+#else
+    memset(name, 0, buffer_length);
+    gethostname(name, buffer_length);
+#endif
 
     return std::string(name);
 }

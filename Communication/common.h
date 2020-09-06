@@ -2,10 +2,14 @@
 #define COMMON_H
 
 #ifdef WIN32
-    #include <Windows.h>
-    #include <tchar.h>
+
+#include <Windows.h>
+#include <tchar.h>
+
 #else
-    #include <unistd.h>
+
+#include <unistd.h>
+
 #endif
 
 #include <vector>

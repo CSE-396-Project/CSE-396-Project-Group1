@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "External/HTTPRequest.hpp"
+#include "../ImageProcessing/image_processing.h"
 
 #include <websocketpp/config/asio_no_tls_client.hpp>
 #include <websocketpp/client.hpp>

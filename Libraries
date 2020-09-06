@@ -1,0 +1,2 @@
+Link These
+-lpthread -lboost_system -lssl -lcrypto -lcpprest -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -lopencv_highgui

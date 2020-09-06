@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include <QMediaPlayer>
-#include <QVideoWidget>
 #include <QInputDialog>
 #include <QMouseEvent>
 #include <QtNetwork>
