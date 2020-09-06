@@ -1,25 +1,27 @@
+#!/bin/bash
+
 OPENCV_VERSION='4.2.0'
 OPENCV_CONTRIB='NO'
 
-sudo apt-get -y update
-sudo apt-get -y upgrade
-sudo apt-get -y dist-upgrade
-sudo apt-get -y autoremove
+sudo dnf -y update
+sudo dnf -y upgrade
+sudo dnf -y dist-upgrade
+sudo dnf -y autoremove
 
-sudo apt-get install -y git
-sudo apt-get install -y build-essential cmake
-sudo apt-get install -y qt5-default libvtk6-dev
-sudo apt-get install -y zlib1g-dev libjpeg-dev libwebp-dev libpng-dev libtiff5-dev libjasper-dev \
+sudo dnf install -y git
+sudo dnf install -y build-essential cmake
+sudo dnf install -y qt5-default libvtk6-dev
+sudo dnf install -y zlib1g-dev libjpeg-dev libwebp-dev libpng-dev libtiff5-dev libjasper-dev \
                         libopenexr-dev libgdal-dev
-sudo apt-get install -y libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev \
+sudo dnf install -y libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev \
                         libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev yasm \
                         libopencore-amrnb-dev libopencore-amrwb-dev libv4l-dev libxine2-dev
-sudo apt-get install -y libtbb-dev libeigen3-dev
-sudo apt-get install -y python-dev  python-tk  pylint  python-numpy  \
+sudo dnf install -y libtbb-dev libeigen3-dev
+sudo dnf install -y python-dev  python-tk  pylint  python-numpy  \
                         python3-dev python3-tk pylint3 python3-numpy flake8
-sudo apt-get install -y ant default-jdk
-sudo apt-get install -y doxygen unzip wget
-sudo apt-get install -y libboost-atomic-dev libboost-thread-dev libboost-system-dev \
+sudo dnf install -y ant default-jdk
+sudo dnf install -y doxygen unzip wget
+sudo dnf install -y libboost-atomic-dev libboost-thread-dev libboost-system-dev \
                         libboost-date-time-dev libboost-regex-dev libboost-filesystem-dev \
                         libboost-random-dev libboost-chrono-dev libboost-serialization-dev \
                         libwebsocketpp-dev openssl libssl-dev ninja-build
