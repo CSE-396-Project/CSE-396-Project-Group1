@@ -86,22 +86,37 @@ void serve_clients() {
 	std::string frame_endpoint_addr = "http://" + host_ip + ":3000/frame";
 	std::string ball_endpoint_addr = "http://" + host_ip + ":3000/ball";
 	std::string simulation_endpoint_addr = "http://" + host_ip + ":3000/simulation";
+	std::string bounce_endpoint_addr = "http://" + host_ip + ":3000/bounce";
+	std::string circle_endpoint_addr = "http://" + host_ip + ":3000/circle";
+	std::string rectangle_endpoint_addr = "http://" + host_ip + ":3000/rectangle";
 
 	std::string frame_host_addr = "http://" + host_name + ":3000/frame";
 	std::string ball_host_addr = "http://" + host_name + ":3000/ball";
 	std::string simulation_host_addr = "http://" + host_name + ":3000/simulation";
+	std::string bounce_host_addr = "http://" + host_name + ":3000/bounce";
+	std::string circle_host_addr = "http://" + host_name + ":3000/circle";
+	std::string rectangle_host_addr = "http://" + host_name + ":3000/rectangle";
 
 	std::cout << "Frame endpoint address: " << frame_host_addr << std::endl;
 	std::cout << "Ball endpoint address: " << ball_host_addr << std::endl;
 	std::cout << "Simulation endpoint address: " << simulation_host_addr << std::endl;
+	std::cout << "Bounce endpoint address: " << bounce_host_addr << std::endl;
+	std::cout << "Circle endpoint address: " << circle_host_addr << std::endl;
+	std::cout << "Rectangle endpoint address: " << rectangle_host_addr << std::endl;
 
 	http_listener frame_listener(frame_endpoint_addr);
 	http_listener ball_listener(ball_endpoint_addr);
 	http_listener simulation_listener(simulation_endpoint_addr);
+	http_listener bounce_listener(bounce_endpoint_addr);
+	http_listener circle_listener(circle_endpoint_addr);
+	http_listener rectangle_listener(rectangle_endpoint_addr);
 	
 	frame_listener.support(methods::GET, handle_get_frame);
 	ball_listener.support(methods::GET, handle_get_ball_coordinates);
 	simulation_listener.support(methods::GET, handle_get_ball_simulation);
+	bounce_listener.support(methods::GET, handle_send_bounce);
+	circle_listener.support(methods::GET, handle_send_circle);
+	rectangle_listener.support(methods::GET, handle_send_rectangle);
 
 	try {
 		frame_listener.open()
@@ -117,7 +132,22 @@ void serve_clients() {
 		simulation_listener.open()
 		.then([&simulation_listener](){
 			std::cout << "Simulation information endpoint started listening!" << std::endl;
+		}).wait();	
+
+		bounce_listener.open()
+		.then([&bounce_listener](){
+			std::cout << "Bounce endpoint started listening!" << std::endl;
+		}).wait();
+
+		circle_listener.open()
+		.then([&circle_listener](){
+			std::cout << "Circle endpoint started listening!" << std::endl;
 		}).wait();		
+
+		rectangle_listener.open()
+		.then([&rectangle_listener](){
+			std::cout << "Rectangle endpoint started listening!" << std::endl;
+		}).wait();								
 
 		while(common::is_running);
 	}
@@ -177,4 +207,49 @@ void handle_get_ball_simulation(http_request request) {
 	std::cout << "Response:" << response_body << std::endl;
 
 	request.reply(response);
+}
+
+void handle_send_bounce(http_request request) {
+	try {
+		std::cout << "Bounce req." << std::endl;
+		http::Request request(common::esp_ip + "/bounce");
+		request.send("GET");
+	}
+	catch (const std::exception& e) {
+		std::cout << "Bounce request failed, error: " << e.what() << std::endl;
+	}
+
+	http_response response(status_codes::OK);
+	response.set_body("OK.", "text/plain");
+	request.reply(response);
+}
+
+void handle_send_circle(http_request request) {
+	try {
+		std::cout << "Circle req." << std::endl;
+		http::Request request(common::esp_ip + "/draw_circle");
+		request.send("GET");
+	}
+	catch (const std::exception& e) {
+		std::cout << "Circle request failed, error: " << e.what() << std::endl;
+	}
+
+	http_response response(status_codes::OK);
+	response.set_body("OK.", "text/plain");
+	request.reply(response);	
+}
+
+void handle_send_rectangle(http_request request) {
+	try {
+		std::cout << "Rectangle req." << std::endl;
+		http::Request request(common::esp_ip + "/draw_rectangle");
+		request.send("GET");
+	}
+	catch (const std::exception& e) {
+		std::cout << "Rectangle request failed, error: " << e.what() << std::endl;
+	}
+
+	http_response response(status_codes::OK);
+	response.set_body("OK.", "text/plain");
+	request.reply(response);	
 }

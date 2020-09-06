@@ -2,7 +2,6 @@
 #define WEBSOCKET_CLIENT_H
 
 #include "common.h"
-#include "External/HTTPRequest.hpp"
 #include "../ImageProcessing/image_processing.h"
 
 #include <websocketpp/config/asio_no_tls_client.hpp>
