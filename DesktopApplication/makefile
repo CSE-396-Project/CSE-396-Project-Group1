@@ -9,3 +9,4 @@ build_desktop:
 clean:
 	cd ball_bouncer && $(MAKE) clean
 	rm -f ../BBDesktop
+	rm -f ball_bouncer/qmake
