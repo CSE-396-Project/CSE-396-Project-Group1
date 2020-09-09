@@ -7,7 +7,9 @@ DEPS=-lpthread \
 -lopencv_imgcodecs \
 -lopencv_highgui
 
-all:
+all: link_qt compile
+
+compile:
 	+$(MAKE) -C ImageProcessing
 	+$(MAKE) -C Communication
 	+$(MAKE) -C DesktopApplication
@@ -17,6 +19,8 @@ all:
 	./Communication/main.o \
 	$(DEPS) -o BBServer
 
+link_qt: 
+	sudo ln -sf /usr/bin/qmake-qt5 DesktopApplication/ball_bouncer/qmake
 clean:
 	rm -f BBServer
 	cd Communication && $(MAKE) clean
