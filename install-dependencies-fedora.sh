@@ -3,6 +3,7 @@
 
 sudo dnf update
 sudo dnf upgrade
+sudo dnf install git-all
 sudo dnf install boost-devel
 sudo dnf install opencv opencv-devel
 sudo dnf install cpprest-devel
