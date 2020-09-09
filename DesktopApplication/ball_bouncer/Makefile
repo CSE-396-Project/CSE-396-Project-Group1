@@ -416,6 +416,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		QSgml/QSgml.h \
 		QSgml/QSgmlTag.h \
 		ui_mainwindow.h \
+		qcircledrawingwidget.h \
 		HTTPRequest.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 

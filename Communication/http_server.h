@@ -2,6 +2,7 @@
 #define HTTP_SERVER_H
 
 #include "common.h"
+#include "External/HTTPRequest.hpp"
 
 #include <cpprest/http_listener.h>
 #include <cpprest/filestream.h>
@@ -15,5 +16,8 @@ void serve_clients();
 void handle_get_frame(http_request request);
 void handle_get_ball_coordinates(http_request request);
 void handle_get_ball_simulation(http_request request);
+void handle_send_bounce(http_request request);
+void handle_send_circle(http_request request);
+void handle_send_rectangle(http_request request);
 
 #endif // HTTP_SERVER_H

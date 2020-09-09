@@ -12,7 +12,7 @@
         android:layout_marginTop="156dp"
         android:fontFamily="monospace"
         android:gravity="center_horizontal"
-        android:text="@string/cse_386_group1_project"
+        android:text="CSE396 - Group1"
         android:textAlignment="center"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
         android:fontFamily="sans-serif-smallcaps"
 
         android:gravity="center_horizontal"
-        android:text="@string/bouncing_ball"
+        android:text="Ball Bouncer"
         android:textAlignment="center"
 
         android:textSize="20sp"

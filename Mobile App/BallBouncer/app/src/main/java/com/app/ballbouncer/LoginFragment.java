@@ -11,6 +11,10 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import java.util.Objects;
 
 public class LoginFragment extends Fragment {
     private EditText ip,port;
@@ -30,6 +34,10 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Login","IP: " + ip.getText().toString()+ " Port: " + port.getText().toString());
+                HomeFragment.setServerData(ip.getText().toString(), port.getText().toString());
+                FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.fragment_container,new HomeFragment()).commit();
             }
         });
 

@@ -63,8 +63,9 @@ environment = SubResource( 1 )
 script = ExtResource( 8 )
 
 [node name="CameraImage" type="InterpolatedCamera" parent="CanvasLayer/Camera1"]
-transform = Transform( 0.750345, -0.661047, -0.000351514, -0.296112, -0.335638, -0.89424, 0.591016, 0.671092, -0.447588, 0.815, -6, -22.934 )
+transform = Transform( 0.755745, -0.654001, -0.0336592, -0.319224, -0.323034, -0.890924, 0.571792, 0.684056, -0.452904, 0.720079, -4.41077, -22.0748 )
 environment = SubResource( 2 )
+fov = 76.8741
 
 [node name="Ball" parent="CanvasLayer" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )

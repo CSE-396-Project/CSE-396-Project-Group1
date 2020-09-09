@@ -49,11 +49,11 @@ public class LoadingFragment extends Fragment {
                     //splash screen done, go to home fragment
                     FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.fragment_container,new HomeFragment()).commit();
+                    ft.replace(R.id.fragment_container,new LoginFragment()).commit();
                 }
             }
         };
-        t.schedule(tt,0,60);
+        t.schedule(tt,0,10);
 
     }
 }
