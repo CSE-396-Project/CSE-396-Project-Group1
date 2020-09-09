@@ -18,8 +18,9 @@
 #include <string>
 #include <thread>
 #include <ctime>
+#include <mutex>
 
-#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
 typedef struct Mask {
@@ -40,7 +41,7 @@ public:
 	static Mask *mask;
 	static cv::Point2f ball_center;
 	static float ball_radius;
-
+	static std::mutex wait_mutex;
 	static std::string esp_ip;
 };
 
