@@ -149,7 +149,7 @@ void serve_clients() {
 			std::cout << "Rectangle endpoint started listening!" << std::endl;
 		}).wait();								
 
-		while(common::is_running);
+		while(true);
 	}
 	catch (std::exception& ex) {
 		std::cout << ex.what() << std::endl;
