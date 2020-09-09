@@ -1,5 +1,8 @@
 #include "http_server.h"
 
+/*** compiler dependency ***/
+std::mutex common::wait_mutex;
+
 std::string get_host_name() {
 	const int buffer_length = 256;
     char name[buffer_length];
@@ -62,7 +65,15 @@ std::string get_host_ip() {
     }
 }
 
+void locker(int __attribute__((unused)))
+{
+	common::wait_mutex.unlock();
+}
+
 void serve_clients() {
+	signal(SIGINT, &locker);
+	signal(SIGTERM, &locker);
+	common::wait_mutex.lock();
     std::srand(std::time(nullptr));
 
 	std::cout << "Setting endpoints..." << std::endl;
@@ -148,12 +159,12 @@ void serve_clients() {
 		.then([&rectangle_listener](){
 			std::cout << "Rectangle endpoint started listening!" << std::endl;
 		}).wait();								
-
-		while(true);
+	
 	}
 	catch (std::exception& ex) {
 		std::cout << ex.what() << std::endl;
 	}
+	common::wait_mutex.lock();
 }
 
 void handle_get_frame(http_request request) {
