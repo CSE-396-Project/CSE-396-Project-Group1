@@ -10,7 +10,6 @@ DEPS=-lpthread \
 all:
 	+$(MAKE) -C ImageProcessing
 	+$(MAKE) -C Communication
-	+$(MAKE) -C Simulation
 	+$(MAKE) -C DesktopApplication
 	g++ ./ImageProcessing/image_processing.o \
 	./Communication/http_server.o \
@@ -22,5 +21,4 @@ clean:
 	rm -f BBServer
 	cd Communication && $(MAKE) clean
 	cd ImageProcessing && $(MAKE) clean
-	cd Simulation && $(MAKE) clean
 	cd DesktopApplication && $(MAKE) clean
